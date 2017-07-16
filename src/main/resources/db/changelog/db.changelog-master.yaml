@@ -1,0 +1,135 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: poroy
+      changes:
+        - createTable:
+            schemaName: public
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(510)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: decimal(8, 2)
+                  constraints:
+                    nullable: false
+                  defaultValue: 0.00
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
+                  defaultValue: 0
+
+  - changeSet:
+        id: 2
+        author: poroy
+        changes:
+          - createTable:
+              schemaName: public
+              tableName: cart_order
+              columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: creation_date
+                    type: timestamp
+                    constraints:
+                      nullable: false
+          - createTable:
+              schemaName: public
+              tableName: order_item
+              columns:
+                - column:
+                    name: id
+                    type: int
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: order_id
+                    type: int
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_order_item_order
+                      references: cart_order(id)
+                - column:
+                    name: product_id
+                    type: int
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_order_item_product
+                      references: product(id)
+
+  - changeSet:
+      id: 3
+      author: poroy
+      changes:
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: Paire de roues Mavic
+              - column:
+                  name: description
+                  value: Paire de roues Mavic Aksyum Elite.
+              - column:
+                  name: price
+                  value: 500.00
+              - column:
+                  name: quantity
+                  value: 20
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: Dérailleur arrière Shimano 105
+              - column:
+                  name: description
+                  value: Dérailleur arrière Shimano 105 (noir).
+              - column:
+                  name: price
+                  value: 80.00
+              - column:
+                  name: quantity
+                  value: 50
+        - insert:
+            tableName: product
+            columns:
+              - column:
+                  name: name
+                  value: Levier de freins Shimano 105
+              - column:
+                  name: description
+                  value: Paire de leviers de freins Shimano 105 avec changement de vitesses.
+              - column:
+                  name: price
+                  value: 100.00
+              - column:
+                  name: quantity
+                  value: 25
