@@ -39,50 +39,63 @@ databaseChangeLog:
                   defaultValue: 0
 
   - changeSet:
-        id: 2
-        author: poroy
-        changes:
-          - createTable:
-              schemaName: public
-              tableName: cart_order
-              columns:
-                - column:
-                    name: id
-                    type: int
-                    autoIncrement: true
-                    constraints:
-                      primaryKey: true
-                      nullable: false
-                - column:
-                    name: creation_date
-                    type: timestamp
-                    constraints:
-                      nullable: false
-          - createTable:
-              schemaName: public
-              tableName: order_item
-              columns:
-                - column:
-                    name: id
-                    type: int
-                    autoIncrement: true
-                    constraints:
-                      primaryKey: true
-                      nullable: false
-                - column:
-                    name: order_id
-                    type: int
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_order_item_order
-                      references: cart_order(id)
-                - column:
-                    name: product_id
-                    type: int
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_order_item_product
-                      references: product(id)
+          id: 2
+          author: poroy
+          changes:
+            - createTable:
+                schemaName: public
+                tableName: cart
+                columns:
+                  - column:
+                      name: id
+                      type: int
+                      autoIncrement: true
+                      constraints:
+                        primaryKey: true
+                        nullable: false
+                  - column:
+                      name: ttl
+                      type: tinyint
+                      constraints:
+                        nullable: false
+                  - column:
+                      name: creation_date
+                      type: timestamp
+                      constraints:
+                        nullable: false
+                  - column:
+                      name: modified_date
+                      type: timestamp
+                      constraints:
+                        nullable: false
+                  - column:
+                      name: closed_date
+                      type: timestamp
+            - createTable:
+                schemaName: public
+                tableName: cart_item
+                columns:
+                  - column:
+                      name: id
+                      type: int
+                      autoIncrement: true
+                      constraints:
+                        primaryKey: true
+                        nullable: false
+                  - column:
+                      name: cart_id
+                      type: int
+                      constraints:
+                        nullable: false
+                        foreignKeyName: fk_cart_item_cart
+                        references: cart(id)
+                  - column:
+                      name: product_id
+                      type: int
+                      constraints:
+                        nullable: false
+                        foreignKeyName: fk_cart_item_product
+                        references: product(id)
 
   - changeSet:
       id: 3
