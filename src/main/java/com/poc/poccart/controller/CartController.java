@@ -43,7 +43,7 @@ public class CartController {
         return new Cart();
     }
 
-    @RequestMapping(value = "/{cartId}/removeItem", method = RequestMethod.POST)
+    @RequestMapping(value = "/{cartId}/removeItem", method = RequestMethod.DELETE)
     public Cart removeItem(@PathVariable("cartId") Integer cartId, @RequestParam("cartItemId") Integer cartItemId) {
 
         return cartService.removeItem(cartId, cartItemId);
