@@ -11,7 +11,7 @@ mvn clean install
  
  Partir le projet (port 8282):
  ```terminal
- java -jar -Dprofile=local target/*.jar
+ java -jar -Dspring.profiles.active=local target/*.jar
  ```
  
 ### Quelques endpoints pratiques:
